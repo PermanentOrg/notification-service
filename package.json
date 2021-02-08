@@ -1,7 +1,7 @@
 {
-  "name": "upload-service",
+  "name": "notification-service",
   "version": "0.0.0",
-  "description": "A service responsible for handling upload requests",
+  "description": "A service responsible for notifications",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src -d lib",
@@ -13,12 +13,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PermanentOrg/upload-service.git"
+    "url": "git+https://github.com/PermanentOrg/notification-service.git"
   },
   "author": "Permanent.org",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/PermanentOrg/upload-service/issues"
+    "url": "https://github.com/PermanentOrg/notification-service/issues"
   },
   "homepage": "https://permanent.org",
   "engines": {

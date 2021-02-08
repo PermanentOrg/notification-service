@@ -1,8 +1,6 @@
-# Permanent.org Upload Service
+# Permanent.org Notification Service
 
-This repository contains a service responsible for handling upload requests.
-
-This service does not process files, but provides the information necessary to the client in order to upload to S3 directly.
+This repository contains a service responsible for handling notifications.
 
 ## Structure
 
