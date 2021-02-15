@@ -5,12 +5,12 @@ import type {
 } from 'express';
 import { healthService } from '../services';
 
-const getHealth: Handler = (
+const getHealth: Handler = async (
   req: Request,
   res: Response,
-): void => {
+): Promise<void> => {
   res.json({
-    status: healthService.getHealth(),
+    status: await healthService.getHealth(),
   });
 };
 
