@@ -10,6 +10,7 @@ const getHealth = async (): Promise<HealthStatus> => {
     await db.sql('health');
     return HealthStatus.AVAILABLE;
   } catch (err: unknown) {
+    // eslint-disable-next-line no-console -- TODO: set up proper logging
     console.log('Error connecting to database', err);
     return HealthStatus.UNAVAILABLE;
   }
