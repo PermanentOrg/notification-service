@@ -1,6 +1,6 @@
 import { db } from './database';
 
-interface Notification{
+export interface Notification {
   toUserId: number;
   notificationType: string;
 }
