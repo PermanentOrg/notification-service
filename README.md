@@ -58,6 +58,27 @@ npm start
 curl http://localhost:3000/api/health
 ```
 
+## Endpoints
+
+### GET /api/health
+#### Input
+No inputs.
+
+#### Output
+Returns a health check.
+
+- `status`: either `available` or `unavailable`.
+- `message`: a more detailed explanation about the health status.
+
+### POST /api/notifications
+#### Input
+ 
+- `toUserId`: Id of the user the notification is for.
+- `notificationType`: Type of the notification being saved.
+
+#### Output
+- `notificationId`: Id of the notification that got created.
+
 ## Contributing
 
 Contributors to this repository agree to adhere to the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). To report violations, get in touch with engineers@permanent.org.
