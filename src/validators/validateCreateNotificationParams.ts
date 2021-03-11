@@ -5,7 +5,7 @@ export const validateCreateNotificationParams = (
   data: Notification,
 ): Joi.ValidationResult => Joi.object().keys({
   notificationType: Joi.string().required(),
-  toUserId: Joi.number().min(1).required(),
+  toUserId: Joi.number().integer().min(1).required(),
 }).validate(
   data,
   { abortEarly: false },
