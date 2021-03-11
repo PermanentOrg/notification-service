@@ -17,14 +17,14 @@ actionable buttons.
 Previously we have been displaying notifications for each archive and hence the notifications feeds were also configured to fetch data based on the archive. Our design has never
 considered providing users with an ability to take action right from the notification feed. In recent years, new features haven't been rolled out with accompanying notifications,
 which has left the notifications feed limited in the types of notices it displays to users.
-@Bryson new design has combined all feeds into one account notification feed, and also has actionable buttons corresponding to each feed. The limitations of the current
-notification system calls for a redesign and re-architecture.
+The new UI ![design](..\notification_ui_design.png) has combined all feeds into one account notification feed, and also has actionable buttons corresponding to each feed. The limitations of the current notification system calls for a redesign and re-architecture.
 
 ## Detailed Design
 
-We will create a new microsystem, preferably in TypeScript and a new database , the chosen one is PostgreSQL.  Microsystem will make it  easier to open source the new service in
+We will create a new microservice, preferably in TypeScript and a new database , the chosen one is PostgreSQL.  Microservice will make it  easier to open source the new service in
 a usable way for other people. This will also offer a fresh codebase with correct process(es), preparing for a better-designed future. The endpoints will be directed through
 current API for authentication and authorization.  API will have 3 endpoints: one to fetch all notifications for the current user, one for the system to create a notification for
-a user, and one for a user to mark the notification as read; broadly, Create, Read, Update. Drawbacks of creating this as a microsystem is that we need to have a new database
+a user, and one for a user to mark the notification as read; broadly, Create, Read, Update. Drawbacks of creating this as a microservice is that we need to have a new database
 limiting data integrity checking at db level.
+Users will also be provoded with options to set preferences for each set of notifications. This microservice will also send emails and push notifications. We are planning to use Firebase Cloud Messaging client for push notifications.
 Notifications won’t be updated when the underlying data is updated.
