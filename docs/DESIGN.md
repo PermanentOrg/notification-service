@@ -28,3 +28,4 @@ a user, and one for a user to mark the notification as read; broadly, Create, Re
 limiting data integrity checking at db level.
 Users will also be provoded with options to set preferences for each set of notifications. This microservice will also send emails and push notifications. We are planning to use Firebase Cloud Messaging client for push notifications.
 Notifications won’t be updated when the underlying data is updated.
+
