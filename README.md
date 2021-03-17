@@ -82,7 +82,7 @@ Returns a health check.
 
 ## Design Doc
 
-  link: [DESIGN.md](DESIGN.MD)
+  link: [DESIGN.md](docs/DESIGN.md)
 
 ## Contributing
 
