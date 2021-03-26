@@ -72,12 +72,17 @@ Returns a health check.
 
 ### POST /api/notifications
 #### Input
- 
+
 - `toUserId`: Id of the user the notification is for.
 - `notificationType`: Type of the notification being saved.
 
 #### Output
+
 - `notificationId`: Id of the notification that got created.
+
+## Design Doc
+
+  link: [DESIGN.md](docs/DESIGN.md)
 
 ## Contributing
 
