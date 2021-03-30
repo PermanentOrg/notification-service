@@ -1,5 +1,5 @@
 import { app } from './app';
-import { migrate } from './services/database';
+import { migrate } from './database';
 
 migrate().then(() => (
   app.listen(process.env.PORT ?? 3000)
