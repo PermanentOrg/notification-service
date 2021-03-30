@@ -6,9 +6,9 @@
   "scripts": {
     "build": "babel src -d lib",
     "check-types": "tsc",
-    "eslint": "eslint --max-warnings 0 ./src --ext .ts,.tsx",
+    "eslint": "eslint --max-warnings 0 ./src --ext .ts",
     "lint": "npm run eslint && npm run check-types",
-    "start": "babel-node --extensions \".ts,.tsx\" src/index.ts",
+    "start": "babel-node --extensions .ts src/index.ts",
     "test": "jest"
   },
   "repository": {
