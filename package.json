@@ -4,11 +4,11 @@
   "description": "A service responsible for notifications",
   "main": "lib/index.js",
   "scripts": {
-    "build": "babel src -d lib",
+    "build": "babel --extensions \".ts\" src -d lib --copy-files",
     "check-types": "tsc",
-    "eslint": "eslint --max-warnings 0 ./src --ext .ts,.tsx",
+    "eslint": "eslint --max-warnings 0 ./src --ext .ts",
     "lint": "npm run eslint && npm run check-types",
-    "start": "babel-node --extensions \".ts,.tsx\" src/index.ts",
+    "start": "babel-node --extensions .ts src/index.ts",
     "test": "jest"
   },
   "repository": {
@@ -41,6 +41,7 @@
     "@tsconfig/node12": "^1.0.7",
     "@types/express": "^4.17.8",
     "@types/jest": "^26.0.13",
+    "@types/node": "^12.20.7",
     "@types/pg": "^7.14.10",
     "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^4.1.1",

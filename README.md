@@ -7,7 +7,7 @@ This repository contains a service responsible for handling notifications.
 ```
 - src
 |- controllers // maps between routes to services
-|- db          // database queries
+|- database    // configuration, migrations, and queries
 |- routes      // endpoint definitions
 |- services    // business logic
 ```
