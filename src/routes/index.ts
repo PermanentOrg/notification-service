@@ -1,7 +1,12 @@
 import express from 'express';
-import { healthController, notificationController } from '../controllers';
+import {
+  deviceController,
+  healthController,
+  notificationController,
+} from '../controllers';
 
 const apiRoutes = express.Router();
+apiRoutes.post('/devices', deviceController.addDevice);
 apiRoutes.get('/health', healthController.getHealth);
 apiRoutes.post('/notifications', notificationController.createNotification);
 
