@@ -14,9 +14,9 @@ const createNotification = async (notification: Notification): Promise<Object> =
     to_user_id: notification.toUserId,
     notification_type: notification.notificationType,
   });
-  var jsonResult = {
-    "notificationId": result.rows[0].notification_id,
-    "message": "Successfully created a notification"
+  const jsonResult = {
+    notificationId: result.rows[0].notification_id,
+    message: "Successfully created a notification"
   }
   return jsonResult;
 };
