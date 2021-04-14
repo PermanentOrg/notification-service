@@ -1,8 +1,8 @@
 import './env';
 import { app } from './app';
-import { migrate } from './database';
+import { startup } from './startup';
 
-migrate().then(() => (
+startup().then(() => (
   app.listen(process.env.PORT ?? 3000)
 )).catch((err) => {
   // eslint-disable-next-line no-console -- TODO: set up proper logging
