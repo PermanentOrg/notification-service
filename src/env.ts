@@ -5,4 +5,5 @@ config();
 
 requireEnv(
   'DATABASE_URL',
+  'FIREBASE_CREDENTIALS',
 );
