@@ -24,27 +24,8 @@ npm install
    Database](https://www.postgresql.org/docs/current/tutorial-createdb.html)
    tutorial.
 
-3. Configure database, by exporting the `DATABASE_URL` environment variable
-   with a valid [PostgreSQL connection
-   string](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING).
-   Other [node-postgres connection
-   variables](https://node-postgres.com/features/connecting) may be used,
-   as well.
-
-   For connecting to a remote database over TCP with password authentication:
-
-```
-export DATABASE_URL="postgresql://user:password@host/db_name"
-```
-
-   For connecting to a local database over a Unix socket with peer
-   authentication:
-
-```
-export DATABASE_URL="postgresql:///notifications"
-export PGHOST="/run/postgresql"
-export PGUSER=$(whoami)
-```
+3. Configure environment variables, by copying `.env.template` to `.env`
+   and replacing the example values.
 
 4. Start the project.
 
