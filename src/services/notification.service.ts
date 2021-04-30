@@ -5,6 +5,9 @@ import { logger } from '../log';
 export interface Notification {
   toUserId: number;
   notificationType: string;
+  context: {
+    [key: string]: string;
+  };
 }
 
 interface InsertNotificationResult{
@@ -20,12 +23,10 @@ const createNotification = async (notification: Notification): Promise<Notificat
   const result = await db.sql<InsertNotificationResult>('insert-notification', {
     to_user_id: notification.toUserId,
     notification_type: notification.notificationType,
+    context: notification.context,
   });
   setImmediate(() => {
-    sendMessageToUser(
-      notification.toUserId,
-      notification.notificationType,
-    ).catch((error: unknown) => (
+    sendMessageToUser(notification).catch((error: unknown) => (
       // TODO: set up Sentry
       logger.error(`Error sending message to user ${notification.toUserId}`, { error })
     ));

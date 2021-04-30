@@ -1,6 +1,7 @@
 import admin from 'firebase-admin';
 import type { messaging, ServiceAccount } from 'firebase-admin';
 import { deviceService } from './device.service';
+import type { Notification } from './notification.service';
 import { logger } from '../log';
 
 const credentials: unknown = JSON.parse(
@@ -36,6 +37,7 @@ const isInvalidTokenError = (err: unknown): boolean => (
 const sendMessageToDevice = async (
   deviceToken: string,
   notificationType: string,
+  context: { [key: string]: string },
 ): Promise<string> => {
   try {
     return await sendMessage({
@@ -45,6 +47,7 @@ const sendMessageToDevice = async (
       },
       data: {
         notificationType,
+        ...context,
       },
     });
   } catch (err: unknown) {
@@ -58,13 +61,14 @@ const sendMessageToDevice = async (
   }
 };
 
-const sendMessageToUser = async (
-  userId: number,
-  notificationType: string,
-): Promise<string[]> => {
-  const tokens = await deviceService.getDeviceTokensForUser(userId);
+const sendMessageToUser = async ({
+  toUserId,
+  notificationType,
+  context,
+}: Notification): Promise<string[]> => {
+  const tokens = await deviceService.getDeviceTokensForUser(toUserId);
   return Promise.all(
-    tokens.map(async (token) => sendMessageToDevice(token, notificationType)),
+    tokens.map(async (token) => sendMessageToDevice(token, notificationType, context)),
   );
 };
 
