@@ -39,8 +39,9 @@ const sendMessageToDevice = async (
   notificationType: string,
   context: { [key: string]: string },
 ): Promise<string> => {
+  logger.silly('Sending message', { deviceToken, notificationType, context });
   try {
-    return await sendMessage({
+    const messageId = await sendMessage({
       token: deviceToken,
       notification: {
         body: notificationType,
@@ -50,6 +51,8 @@ const sendMessageToDevice = async (
         ...context,
       },
     });
+    logger.debug('Successfully sent message', { deviceToken, messageId });
+    return messageId;
   } catch (err: unknown) {
     if (isInvalidTokenError(err)) {
       logger.warn(`Removing expired or invalid token: ${deviceToken}`);
