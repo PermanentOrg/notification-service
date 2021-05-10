@@ -1,2 +1,2 @@
 export { validateCreateDeviceParams } from './validateCreateDeviceParams';
-export { validateCreateNotificationParams } from './validateCreateNotificationParams';
+export { validateCreateNotificationParams } from './notification-params';
