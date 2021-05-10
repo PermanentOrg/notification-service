@@ -1,6 +1,7 @@
 import * as path from 'path';
 import { TinyPg } from 'tinypg';
 import { migrate as pgMigrate } from 'postgres-migrations';
+import { logger } from '../log';
 
 const db = new TinyPg({
   connection_string: process.env.DATABASE_URL,
@@ -12,8 +13,7 @@ const migrate = async (): Promise<void> => {
   await pgMigrate(
     { client },
     path.resolve(__dirname, 'migrations'),
-    // eslint-disable-next-line no-console -- TODO: set up proper logging
-    { logger: console.log },
+    { logger: logger.info },
   );
 };
 

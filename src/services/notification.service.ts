@@ -1,5 +1,6 @@
 import { db } from '../database';
 import { sendMessageToUser } from './message.service';
+import { logger } from '../log';
 
 export interface Notification {
   toUserId: number;
@@ -24,9 +25,9 @@ const createNotification = async (notification: Notification): Promise<Notificat
     sendMessageToUser(
       notification.toUserId,
       notification.notificationType,
-    ).catch((err: unknown) => (
-      // eslint-disable-next-line no-console -- TODO: set up Sentry
-      console.log('Error sending message to user', notification.toUserId, err)
+    ).catch((error: unknown) => (
+      // TODO: set up Sentry
+      logger.error(`Error sending message to user ${notification.toUserId}`, { error })
     ));
   });
   return {

@@ -1,6 +1,7 @@
 import admin from 'firebase-admin';
 import type { messaging, ServiceAccount } from 'firebase-admin';
 import { deviceService } from './device.service';
+import { logger } from '../log';
 
 const credentials: unknown = JSON.parse(
   process.env.FIREBASE_CREDENTIALS as string,
@@ -48,8 +49,7 @@ const sendMessageToDevice = async (
     });
   } catch (err: unknown) {
     if (isInvalidTokenError(err)) {
-      // eslint-disable-next-line no-console -- TODO: set up proper logging
-      console.log('Removing expired or invalid token', deviceToken);
+      logger.warn(`Removing expired or invalid token: ${deviceToken}`);
       await deviceService.removeDeviceToken(deviceToken);
       return '';
     }
