@@ -1,8 +1,7 @@
 import Joi from 'joi';
-import type { Notification } from '../services/notification.service';
 
 export const validateCreateNotificationParams = (
-  data: Notification,
+  data: unknown,
 ): Joi.ValidationResult => Joi.object().keys({
   notificationType: Joi.string().required(),
   toUserId: Joi.number().integer().min(1).required(),
