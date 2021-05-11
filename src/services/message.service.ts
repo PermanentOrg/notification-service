@@ -1,6 +1,7 @@
 import admin from 'firebase-admin';
 import type { messaging, ServiceAccount } from 'firebase-admin';
 import { deviceService } from './device.service';
+import type { Notification } from './notification.service';
 import { logger } from '../log';
 
 const credentials: unknown = JSON.parse(
@@ -36,17 +37,22 @@ const isInvalidTokenError = (err: unknown): boolean => (
 const sendMessageToDevice = async (
   deviceToken: string,
   notificationType: string,
+  context: { [key: string]: string },
 ): Promise<string> => {
+  logger.silly('Sending message', { deviceToken, notificationType, context });
   try {
-    return await sendMessage({
+    const messageId = await sendMessage({
       token: deviceToken,
       notification: {
         body: notificationType,
       },
       data: {
         notificationType,
+        ...context,
       },
     });
+    logger.debug('Successfully sent message', { deviceToken, messageId });
+    return messageId;
   } catch (err: unknown) {
     if (isInvalidTokenError(err)) {
       logger.warn(`Removing expired or invalid token: ${deviceToken}`);
@@ -58,13 +64,14 @@ const sendMessageToDevice = async (
   }
 };
 
-const sendMessageToUser = async (
-  userId: number,
-  notificationType: string,
-): Promise<string[]> => {
-  const tokens = await deviceService.getDeviceTokensForUser(userId);
+const sendMessageToUser = async ({
+  toUserId,
+  notificationType,
+  context,
+}: Notification): Promise<string[]> => {
+  const tokens = await deviceService.getDeviceTokensForUser(toUserId);
   return Promise.all(
-    tokens.map(async (token) => sendMessageToDevice(token, notificationType)),
+    tokens.map(async (token) => sendMessageToDevice(token, notificationType, context)),
   );
 };
 
