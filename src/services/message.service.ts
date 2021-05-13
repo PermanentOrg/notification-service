@@ -46,6 +46,13 @@ const sendMessageToDevice = async (
       notification: {
         body: notificationType,
       },
+      apns: {
+        payload: {
+          aps: {
+            'mutable-content': true,
+          },
+        },
+      },
       data: {
         notificationType,
         ...context,
