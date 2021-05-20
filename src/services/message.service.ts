@@ -43,12 +43,12 @@ const sendMessageToDevice = async (
   try {
     const messageId = await sendMessage({
       token: deviceToken,
-      notification: {
-        body: notificationType,
-      },
       apns: {
         payload: {
           aps: {
+            alert: {
+              body: notificationType,
+            },
             'mutable-content': true,
           },
         },
