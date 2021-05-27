@@ -8,7 +8,7 @@ import { validateCreateDeviceParams } from '../validators';
 
 interface Devices{
   userId: number;
-  token: string;
+  deviceToken: string;
 }
 
 const addDevice: Handler = (
@@ -26,20 +26,24 @@ const addDevice: Handler = (
       }));
   }
 };
-const deleteDevice: Handler = (
+const deleteDevice: Handler = async (
   req: Request,
   res: Response,
-): void => {
+): Promise<void> => {
   const validation = validateCreateDeviceParams(req.body);
   if (validation.error) {
     res.status(400).json({ error: validation.error });
   } else {
     const device = req.body as Devices;
-    deviceService.removeDeviceToken(device.token)
-      .then(() => res.json('Device is successfully removed.'))
-      .catch((err: unknown) => res.status(500).json({
-        error: err,
-      }));
+    if ((await deviceService.getDeviceTokensForUser(device.userId)).includes(device.deviceToken)) {
+      deviceService.removeDeviceToken(device.deviceToken)
+        .then(() => res.json('Device is successfully removed.'))
+        .catch((err: unknown) => res.status(500).json({
+          error: err,
+        }));
+    } else {
+      res.status(404).json('Device was not found.');
+    }
   }
 };
 export const deviceController = {
