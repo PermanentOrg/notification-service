@@ -34,7 +34,7 @@
     "pg": "^8.5.1",
     "postgres-migrations": "^5.1.1",
     "require-env-variable": "^3.1.2",
-    "tinypg": "^6.0.0",
+    "tinypg": "^7.0.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {
