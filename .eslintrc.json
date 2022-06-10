@@ -3,9 +3,13 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint",
+    "import"
+  ],
   "extends": [
     "plugin:@typescript-eslint/all",
+    "airbnb-base",
     "airbnb-typescript/base"
   ],
   "rules": {
