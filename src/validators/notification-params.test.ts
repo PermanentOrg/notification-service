@@ -1,8 +1,8 @@
-import type { ValidationResult } from 'joi';
 import {
   forbiddenKeys,
   validateCreateNotificationParams as validate,
 } from './notification-params';
+import { isValidationError } from './utils';
 
 /* eslint-disable @typescript-eslint/no-base-to-string --
  * `Error` does have a valid toString method
@@ -10,66 +10,70 @@ import {
  */
 
 expect.extend({
-  toHaveErrorMessage: (received: ValidationResult, message: string) => {
-    const { error } = received;
-    if (error === undefined) {
-      return {
-        pass: false,
-        message: (): string => 'expected validation result to have an error',
-      };
-    }
-    const hasMatchingErrorMessage = error.details
-      .map((item) => item.message)
-      .includes(message);
-    if (hasMatchingErrorMessage) {
-      return {
-        pass: true,
-        message: (): string => [
-          `expected {${error.toString()}} not to have error message ${message}:`,
-          error.annotate(),
-        ].join('\n'),
-      };
+  toGenerateErrorMessage: (func: (data: unknown) => boolean, arg: unknown, message: string) => {
+    try {
+      func(arg);
+    } catch (error) {
+      if (isValidationError(error)) {
+        const hasMatchingErrorMessage = error.details
+          .map((item) => item.message)
+          .includes(message);
+        const errorString = error.toString();
+        const errorAnnotations = error.annotate();
+        if (hasMatchingErrorMessage) {
+          return {
+            pass: true,
+            message: (): string => [
+              `expected {${errorString}} not to have error message ${message}:`,
+              errorAnnotations,
+            ].join('\n'),
+          };
+        }
+        return {
+          pass: false,
+          message: (): string => [
+            `expected {${errorString}} to have error message ${message}:`,
+            errorAnnotations,
+          ].join('\n'),
+        };
+      }
+      throw error;
     }
     return {
       pass: false,
-      message: (): string => [
-        `expected {${error.toString()}} to have error message ${message}:`,
-        error.annotate(),
-      ].join('\n'),
+      message: (): string => 'expected validation result to have an error',
     };
   },
 });
 
 describe('Notification parameter validator', () => {
-  it('should accept a valid notification (without context)', () => (
+  it('should accept a valid notification (without context)', () => {
     expect(validate({
       notificationType: 'test',
       toUserId: 1,
-    })).not.toHaveProperty('error')
-  ));
+    })).not.toHaveProperty('error');
+  });
 
   it('should require an object', () => {
-    expect(validate(42)).toHaveErrorMessage('"value" must be of type object');
+    expect(validate).toGenerateErrorMessage(42, '"value" must be of type object');
   });
 
   it('should require the notification type', () => {
-    expect(validate({
-      toUserId: 1,
-    })).toHaveErrorMessage('"notificationType" is required');
+    expect(validate).toGenerateErrorMessage({ toUserId: 1 }, '"notificationType" is required');
   });
 
   it('should require the to user ID', () => {
-    expect(validate({
+    expect(validate).toGenerateErrorMessage({
       notificationType: 'test',
-    })).toHaveErrorMessage('"toUserId" is required');
+    }, '"toUserId" is required');
   });
 
   it('should reject other keys', () => {
-    expect(validate({
+    expect(validate).toGenerateErrorMessage({
       notificationType: 'test',
       toUserId: 1,
       unexpected: true,
-    })).toHaveErrorMessage('"unexpected" is not allowed');
+    }, '"unexpected" is not allowed');
   });
 
   describe('context', () => {
@@ -93,24 +97,24 @@ describe('Notification parameter validator', () => {
     });
 
     it('should require string values', () => {
-      expect(validate({
+      expect(validate).toGenerateErrorMessage({
         notificationType: 'test',
         toUserId: 1,
         context: {
           forbidden: true,
         },
-      })).toHaveErrorMessage('"context.forbidden" must be a string');
+      }, '"context.forbidden" must be a string');
     });
 
     forbiddenKeys.forEach((forbiddenKey) => {
       it(`should forbid key "${forbiddenKey}"`, () => {
-        expect(validate({
+        expect(validate).toGenerateErrorMessage({
           notificationType: 'test',
           toUserId: 1,
           context: {
             [forbiddenKey]: 'forbidden',
           },
-        })).toHaveErrorMessage(`"context.${forbiddenKey}" is not allowed`);
+        }, `"context.${forbiddenKey}" is not allowed`);
       });
 
       it(`should allow value "${forbiddenKey}"`, () => {
@@ -124,29 +128,29 @@ describe('Notification parameter validator', () => {
       });
     });
 
-    ['google', 'google-test', 'googleTest'].forEach((forbiddenKey) => (
+    ['google', 'google-test', 'googleTest'].forEach((forbiddenKey) => {
       it(`should forbid key starting with "google" ("${forbiddenKey}")`, () => {
-        expect(validate({
+        expect(validate).toGenerateErrorMessage({
           notificationType: 'test',
           toUserId: 1,
           context: {
             [forbiddenKey]: 'forbidden',
           },
-        })).toHaveErrorMessage(`"context.${forbiddenKey}" is not allowed`);
-      })
-    ));
+        }, `"context.${forbiddenKey}" is not allowed`);
+      });
+    });
 
-    ['gcm', 'gcm-test', 'gcmTest'].forEach((forbiddenKey) => (
+    ['gcm', 'gcm-test', 'gcmTest'].forEach((forbiddenKey) => {
       it(`should forbid key starting with "gcm" ("${forbiddenKey}")`, () => {
-        expect(validate({
+        expect(validate).toGenerateErrorMessage({
           notificationType: 'test',
           toUserId: 1,
           context: {
             [forbiddenKey]: 'forbidden',
           },
-        })).toHaveErrorMessage(`"context.${forbiddenKey}" is not allowed`);
-      })
-    ));
+        }, `"context.${forbiddenKey}" is not allowed`);
+      });
+    });
 
     it('should accept a key containing "google"', () => {
       expect(validate({
