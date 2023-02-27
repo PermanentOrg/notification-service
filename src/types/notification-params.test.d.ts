@@ -2,7 +2,7 @@ export {};
 declare global {
   namespace jest {
     interface Matchers<R> {
-      toHaveErrorMessage: (message: string) => R;
+      toGenerateErrorMessage: (arg: unknown, message: string) => R;
     }
   }
 }

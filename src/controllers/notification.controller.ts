@@ -4,16 +4,22 @@ import type {
   Response,
 } from 'express';
 import { notificationService } from '../services';
-import { validateCreateNotificationParams } from '../validators';
+import { validateCreateNotificationParams, isValidationError } from '../validators';
 
 const createNotification: Handler = (
   req: Request,
   res: Response,
 ): void => {
-  const validation = validateCreateNotificationParams(req.body);
-  if (validation.error) {
-    res.status(400).json({ error: validation.error });
-  } else {
+  try {
+    validateCreateNotificationParams(req.body);
+  } catch (err) {
+    if (isValidationError(err)) {
+      res.status(400).json({ error: err });
+    } else {
+      throw err;
+    }
+  }
+  if (validateCreateNotificationParams(req.body)) {
     notificationService.createNotification(req.body)
       .then((data) => res.json(data))
       .catch((err: unknown) => res.status(500).json({
