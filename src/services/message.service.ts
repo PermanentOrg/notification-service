@@ -5,7 +5,7 @@ import type { Notification } from './notification.service';
 import { logger } from '../log';
 
 const credentials: unknown = JSON.parse(
-  process.env.FIREBASE_CREDENTIALS ?? '',
+  process.env.FIREBASE_CREDENTIALS as string,
 );
 const firebaseApp = admin.initializeApp({
   credential: admin.credential.cert(credentials as ServiceAccount),
@@ -37,7 +37,7 @@ const isInvalidTokenError = (err: unknown): boolean => (
 const sendMessageToDevice = async (
   deviceToken: string,
   notificationType: string,
-  context: Record<string, string>,
+  context: { [key: string]: string },
 ): Promise<string> => {
   logger.silly('Sending message', { deviceToken, notificationType, context });
   try {
