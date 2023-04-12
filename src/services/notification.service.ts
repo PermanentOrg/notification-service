@@ -5,16 +5,14 @@ import { logger } from '../log';
 export interface Notification {
   toUserId: number;
   notificationType: string;
-  context: {
-    [key: string]: string;
-  };
+  context: Record<string, string>;
 }
 
-interface InsertNotificationResult{
+interface InsertNotificationResult {
   notification_id: number;
 }
 
-interface NotificationResponse{
+interface NotificationResponse {
   notificationId: number;
   message: string;
 }

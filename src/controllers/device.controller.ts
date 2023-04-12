@@ -4,9 +4,9 @@ import type {
   Response,
 } from 'express';
 import { deviceService } from '../services';
-import { validateCreateDeviceParams } from '../validators';
+import { validateCreateDeviceParams, isValidationError } from '../validators';
 
-interface Devices{
+interface Devices {
   userId: number;
   deviceToken: string;
 }
@@ -15,10 +15,16 @@ const addDevice: Handler = (
   req: Request,
   res: Response,
 ): void => {
-  const validation = validateCreateDeviceParams(req.body);
-  if (validation.error) {
-    res.status(400).json({ error: validation.error });
-  } else {
+  try {
+    validateCreateDeviceParams(req.body);
+  } catch (err) {
+    if (isValidationError(err)) {
+      res.status(400).json({ error: err });
+    } else {
+      throw err;
+    }
+  }
+  if (validateCreateDeviceParams(req.body)) {
     deviceService.addDevice(req.body)
       .then(() => res.json(req.body))
       .catch((err: unknown) => res.status(500).json({
@@ -30,10 +36,16 @@ const deleteDevice: Handler = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
-  const validation = validateCreateDeviceParams(req.body);
-  if (validation.error) {
-    res.status(400).json({ error: validation.error });
-  } else {
+  try {
+    validateCreateDeviceParams(req.body);
+  } catch (err) {
+    if (isValidationError(err)) {
+      res.status(400).json({ error: err });
+    } else {
+      throw err;
+    }
+  }
+  if (validateCreateDeviceParams(req.body)) {
     const device = req.body as Devices;
     if ((await deviceService.getDeviceTokensForUser(device.userId)).includes(device.deviceToken)) {
       deviceService.removeDeviceToken(device.deviceToken)
