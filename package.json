@@ -22,7 +22,7 @@
   },
   "homepage": "https://permanent.org",
   "engines": {
-    "node": ">=14.0"
+    "node": ">=16.0"
   },
   "dependencies": {
     "@tsconfig/node16": "^16.1.1",
