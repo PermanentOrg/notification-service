@@ -28,7 +28,7 @@
     "@tsconfig/node16": "^16.1.1",
     "body-parser": "^1.20.1",
     "dotenv": "^8.2.0",
-    "express": "^4.17.3",
+    "express": "^4.19.2",
     "express-winston": "^4.1.0",
     "firebase-admin": "^11.5.0",
     "joi": "^17.2.1",
