@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      - dependency-name: 'eslint'
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@typescript-eslint/eslint-plugin'
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@typescript-eslint/parser'
+        update-types: ['version-update:semver-major']
+    groups:
+      eslint:
+        patterns:
+          - '*eslint*'
+  - package-ecosystem: "github-actions"
+    directory: ".github/workflows"
+    schedule:
+      interval: "weekly"
