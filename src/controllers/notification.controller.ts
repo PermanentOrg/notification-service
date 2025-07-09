@@ -4,13 +4,14 @@ import {
 	validateCreateNotificationParams,
 	isValidationError,
 } from "../validators";
+import { HTTP_STATUS } from "@pdc/http-status-codes";
 
 const createNotification: Handler = (req: Request, res: Response): void => {
 	try {
 		validateCreateNotificationParams(req.body);
 	} catch (err) {
 		if (isValidationError(err)) {
-			res.status(400).json({ error: err });
+			res.status(HTTP_STATUS.CLIENT_ERROR.BAD_REQUEST).json({ error: err });
 		} else {
 			throw err;
 		}
@@ -20,7 +21,7 @@ const createNotification: Handler = (req: Request, res: Response): void => {
 			.createNotification(req.body)
 			.then((data) => res.json(data))
 			.catch((err: unknown) =>
-				res.status(500).json({
+				res.status(HTTP_STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR).json({
 					error: err,
 				}),
 			);

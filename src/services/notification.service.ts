@@ -33,8 +33,12 @@ const createNotification = async (
 			}),
 		);
 	});
+
+	const {
+		rows: [{ notification_id: notificationId }],
+	} = result;
 	return {
-		notificationId: result.rows[0].notification_id,
+		notificationId,
 		message: "Successfully created a notification",
 	};
 };

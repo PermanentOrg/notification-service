@@ -1,4 +1,5 @@
 import Joi from "joi";
+import { MINIMUM_USER_ID } from "../constants";
 import type { Notification } from "../services/notification.service";
 
 const forbiddenKeys = [
@@ -19,7 +20,7 @@ const validateCreateNotificationParams = (
 	const validation = Joi.object()
 		.keys({
 			notificationType: Joi.string().required(),
-			toUserId: Joi.number().integer().min(1).required(),
+			toUserId: Joi.number().integer().min(MINIMUM_USER_ID).required(),
 			context: Joi.object().pattern(
 				Joi.string()
 					.invalid(...forbiddenKeys)
