@@ -13,7 +13,7 @@ startup()
 			logger.info(`notification-service listening on port ${port}`);
 		}),
 	)
-	.catch((err) => {
+	.catch((err: unknown) => {
 		logger.error(err);
 		process.exit(ExitCode.ERROR);
 	});
