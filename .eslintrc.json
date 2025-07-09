@@ -7,11 +7,7 @@
     "@typescript-eslint",
     "import"
   ],
-  "extends": [
-    "plugin:@typescript-eslint/all",
-    "airbnb-base",
-    "airbnb-typescript/base"
-  ],
+  "extends": [],
   "rules": {
     "import/prefer-default-export": "off",
     "import/no-default-export":  "error",
