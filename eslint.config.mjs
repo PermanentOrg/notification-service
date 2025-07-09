@@ -44,7 +44,6 @@ export default defineConfig([
 
 			// These are rules enabled by `love` which the project currently violates.
 			// We will re-enable these alongside the necessary fixes over time.
-			"eslint-comments/disable-enable-pair": "off",
 			"@typescript-eslint/return-await": "off",
 			"@typescript-eslint/use-unknown-in-catch-callback-variable": "off",
 			"import/enforce-node-protocol-usage": "off",
