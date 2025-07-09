@@ -42,16 +42,20 @@ curl http://localhost:3000/api/health
 ## Endpoints
 
 ### GET /api/health
+
 #### Input
+
 No inputs.
 
 #### Output
+
 Returns a health check.
 
 - `status`: either `available` or `unavailable`.
 - `message`: a more detailed explanation about the health status.
 
 ### POST /api/notifications
+
 #### Input
 
 - `toUserId`: Id of the user the notification is for.
@@ -63,7 +67,7 @@ Returns a health check.
 
 ## Design Doc
 
-  link: [DESIGN.md](docs/DESIGN.md)
+link: [DESIGN.md](docs/DESIGN.md)
 
 ## Contributing
 

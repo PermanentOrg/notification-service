@@ -1,3 +1,3 @@
-export { validateCreateDeviceParams } from './validateCreateDeviceParams';
-export { validateCreateNotificationParams } from './notification-params';
-export { isValidationError } from './utils';
+export { validateCreateDeviceParams } from "./validateCreateDeviceParams";
+export { validateCreateNotificationParams } from "./notification-params";
+export { isValidationError } from "./utils";
