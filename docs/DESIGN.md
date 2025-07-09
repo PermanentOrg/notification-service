@@ -1,6 +1,5 @@
 # Design Doc
 
-
 ## Objective
 
 To Create a new Notification system in TypeScript to provide users with better feeds and more features.
@@ -18,7 +17,6 @@ The new UI design has combined all feeds into one account notification feed, and
 
 ## Detailed Design
 
-We will create a new microservice, preferably in TypeScript and a new database , the chosen one is PostgreSQL.  Microservice will make it  easier to open source the new service in a usable way for other people. This will also offer a fresh codebase with correct process(es), preparing for a better-designed future. The endpoints will be directed through current API for authentication and authorization.
+We will create a new microservice, preferably in TypeScript and a new database , the chosen one is PostgreSQL. Microservice will make it easier to open source the new service in a usable way for other people. This will also offer a fresh codebase with correct process(es), preparing for a better-designed future. The endpoints will be directed through current API for authentication and authorization.
 Users will also be provoded with options to set preferences for each set of notifications. This microservice will also send emails and push notifications. We are planning to use Firebase Cloud Messaging client for push notifications.
 Notifications won’t be updated when the underlying data is updated.
-

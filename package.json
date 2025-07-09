@@ -1,57 +1,64 @@
 {
-  "name": "notification-service",
-  "version": "0.0.0",
-  "description": "A service responsible for notifications",
-  "main": "lib/index.js",
-  "scripts": {
-    "build": "tsc",
-    "check-types": "tsc",
-    "eslint": "eslint --max-warnings 0 ./src --ext .ts",
-    "lint": "npm run eslint && npm run check-types",
-    "start": "ts-node src/index.ts",
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PermanentOrg/notification-service.git"
-  },
-  "author": "Permanent.org",
-  "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/PermanentOrg/notification-service/issues"
-  },
-  "homepage": "https://permanent.org",
-  "engines": {
-    "node": ">=22.0"
-  },
-  "dependencies": {
-    "body-parser": "^1.20.1",
-    "dotenv": "^8.2.0",
-    "express": "^5.1.0",
-    "express-winston": "^4.1.0",
-    "firebase-admin": "^12.0.0",
-    "joi": "^17.13.3",
-    "pg": "^8.15.6",
-    "postgres-migrations": "^5.3.0",
-    "require-env-variable": "^3.1.2",
-    "tinypg": "^7.0.1",
-    "winston": "^3.3.3"
-  },
-  "devDependencies": {
-    "@tsconfig/node22": "^22.0.2",
-    "@types/express": "^5.0.3",
-    "@types/jest": "^26.0.23",
-    "@types/node": "^14.18.3",
-    "@types/pg": "^8.15.1",
-    "@types/supertest": "^2.0.10",
-    "@typescript-eslint/eslint-plugin": "^8.36.0",
-    "@typescript-eslint/parser": "^8.36.0",
-    "eslint": "^8.27.0",
-    "eslint-plugin-import": "^2.27.5",
-    "jest": "^29.0.0",
-    "supertest": "^7.1.1",
-    "ts-jest": "^29.3.4",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
-  }
+	"name": "notification-service",
+	"version": "0.0.0",
+	"description": "A service responsible for notifications",
+	"main": "lib/index.js",
+	"scripts": {
+		"build": "tsc",
+		"eslint": "eslint --max-warnings 0 ./src --ext .ts",
+		"lint": "npm run lint:eslint && npm run lint:prettier && npm run lint:tsc",
+		"lint:eslint": "eslint ./src --ext .ts,.tsx",
+		"lint:prettier": "prettier . --check",
+		"lint:tsc": "tsc --noEmit",
+		"format": "npm run format:prettier && npm run format:eslint",
+		"format:prettier": "prettier --write .",
+		"format:eslint": "eslint ./src --fix || true",
+		"start": "ts-node src/index.ts",
+		"test": "jest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/PermanentOrg/notification-service.git"
+	},
+	"author": "Permanent.org",
+	"license": "AGPL-3.0",
+	"bugs": {
+		"url": "https://github.com/PermanentOrg/notification-service/issues"
+	},
+	"homepage": "https://permanent.org",
+	"engines": {
+		"node": ">=22.0"
+	},
+	"dependencies": {
+		"body-parser": "^1.20.1",
+		"dotenv": "^8.2.0",
+		"express": "^5.1.0",
+		"express-winston": "^4.1.0",
+		"firebase-admin": "^12.0.0",
+		"joi": "^17.13.3",
+		"pg": "^8.15.6",
+		"postgres-migrations": "^5.3.0",
+		"require-env-variable": "^3.1.2",
+		"tinypg": "^7.0.1",
+		"winston": "^3.3.3"
+	},
+	"devDependencies": {
+		"@tsconfig/node22": "^22.0.2",
+		"@types/express": "^5.0.3",
+		"@types/jest": "^26.0.23",
+		"@types/node": "^14.18.3",
+		"@types/pg": "^8.15.1",
+		"@types/supertest": "^2.0.10",
+		"@typescript-eslint/eslint-plugin": "^8.36.0",
+		"@typescript-eslint/parser": "^8.36.0",
+		"eslint": "^8.27.0",
+		"eslint-config-prettier": "^10.1.5",
+		"eslint-plugin-import": "^2.27.5",
+		"jest": "^29.0.0",
+		"prettier": "^3.6.2",
+		"supertest": "^7.1.1",
+		"ts-jest": "^29.3.4",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.8.3"
+	}
 }
