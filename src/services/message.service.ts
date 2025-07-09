@@ -5,13 +5,20 @@ import type { Notification } from "./notification.service";
 import { logger } from "../log";
 
 const credentials: unknown = JSON.parse(process.env.FIREBASE_CREDENTIALS ?? "");
+
+if (typeof credentials !== "object" || credentials === null) {
+	throw new Error(
+		"Invalid or missing FIREBASE_CREDENTIALS environment variable",
+	);
+}
+
 const firebaseApp = admin.initializeApp({
 	credential: admin.credential.cert(credentials as ServiceAccount),
 });
 const messagingService = admin.messaging(firebaseApp);
 
 const sendMessage = async (message: messaging.Message): Promise<string> =>
-	messagingService.send(message, false);
+	await messagingService.send(message, false);
 
 interface FirebaseErrorI {
 	code: string;
@@ -70,15 +77,16 @@ const sendMessageToUser = async ({
 	context,
 }: Notification): Promise<string[]> => {
 	const tokens = await deviceService.getDeviceTokensForUser(toUserId);
-	return Promise.all(
-		tokens.map(async (token) =>
-			sendMessageToDevice(token, notificationType, context),
+	return await Promise.all(
+		tokens.map(
+			async (token) =>
+				await sendMessageToDevice(token, notificationType, context),
 		),
 	);
 };
 
 const sendDryRunMessage = async (message: messaging.Message): Promise<string> =>
-	messagingService.send(message, true);
+	await messagingService.send(message, true);
 
 const validateHealth = async (): Promise<boolean> => {
 	await sendDryRunMessage({

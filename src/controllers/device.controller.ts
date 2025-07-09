@@ -1,6 +1,7 @@
 import type { Handler, Request, Response } from "express";
 import { deviceService } from "../services";
 import { validateCreateDeviceParams, isValidationError } from "../validators";
+import { HTTP_STATUS } from "@pdc/http-status-codes";
 
 interface Devices {
 	userId: number;
@@ -12,7 +13,7 @@ const addDevice: Handler = (req: Request, res: Response): void => {
 		validateCreateDeviceParams(req.body);
 	} catch (err) {
 		if (isValidationError(err)) {
-			res.status(400).json({ error: err });
+			res.status(HTTP_STATUS.CLIENT_ERROR.BAD_REQUEST).json({ error: err });
 		} else {
 			throw err;
 		}
@@ -22,7 +23,7 @@ const addDevice: Handler = (req: Request, res: Response): void => {
 			.addDevice(req.body)
 			.then(() => res.json(req.body))
 			.catch((err: unknown) =>
-				res.status(500).json({
+				res.status(HTTP_STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR).json({
 					error: err,
 				}),
 			);
@@ -36,7 +37,7 @@ const deleteDevice: Handler = async (
 		validateCreateDeviceParams(req.body);
 	} catch (err) {
 		if (isValidationError(err)) {
-			res.status(400).json({ error: err });
+			res.status(HTTP_STATUS.CLIENT_ERROR.BAD_REQUEST).json({ error: err });
 		} else {
 			throw err;
 		}
@@ -52,12 +53,14 @@ const deleteDevice: Handler = async (
 				.removeDeviceToken(device.deviceToken)
 				.then(() => res.json("Device is successfully removed."))
 				.catch((err: unknown) =>
-					res.status(500).json({
+					res.status(HTTP_STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR).json({
 						error: err,
 					}),
 				);
 		} else {
-			res.status(404).json("Device was not found.");
+			res
+				.status(HTTP_STATUS.CLIENT_ERROR.NOT_FOUND)
+				.json("Device was not found.");
 		}
 	}
 };

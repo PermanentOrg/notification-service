@@ -4,11 +4,6 @@ import {
 } from "./notification-params";
 import { isValidationError } from "./utils";
 
-/* eslint-disable @typescript-eslint/no-base-to-string --
- * `Error` does have a valid toString method
- * https://github.com/microsoft/TypeScript/issues/38347
- */
-
 expect.extend({
 	toGenerateErrorMessage: (
 		func: (data: unknown) => boolean,
@@ -22,7 +17,7 @@ expect.extend({
 				const hasMatchingErrorMessage = error.details
 					.map((item) => item.message)
 					.includes(message);
-				const errorString = error.toString();
+				const errorString = JSON.stringify(error);
 				const errorAnnotations = error.annotate();
 				if (hasMatchingErrorMessage) {
 					return {

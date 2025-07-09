@@ -1,4 +1,4 @@
-import * as path from "path";
+import * as path from "node:path";
 import { TinyPg } from "tinypg";
 import { migrate as pgMigrate } from "postgres-migrations";
 import { logger } from "../log";
