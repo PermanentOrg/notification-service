@@ -41,10 +41,6 @@ export default defineConfig([
 				"error",
 				{ ignore: [0], ignoreEnums: true },
 			],
-
-			// These are rules enabled by `love` which the project currently violates.
-			// We will re-enable these alongside the necessary fixes over time.
-			"@typescript-eslint/no-deprecated": "off",
 		},
 	},
 	{
