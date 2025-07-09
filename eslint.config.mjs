@@ -44,7 +44,6 @@ export default defineConfig([
 
 			// These are rules enabled by `love` which the project currently violates.
 			// We will re-enable these alongside the necessary fixes over time.
-			"@typescript-eslint/no-unsafe-type-assertion": "off",
 			"max-nested-callbacks": "off",
 			"eslint-comments/disable-enable-pair": "off",
 			"@typescript-eslint/return-await": "off",

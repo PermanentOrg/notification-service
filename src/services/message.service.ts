@@ -5,6 +5,13 @@ import type { Notification } from "./notification.service";
 import { logger } from "../log";
 
 const credentials: unknown = JSON.parse(process.env.FIREBASE_CREDENTIALS ?? "");
+
+if (typeof credentials !== "object" || credentials === null) {
+	throw new Error(
+		"Invalid or missing FIREBASE_CREDENTIALS environment variable",
+	);
+}
+
 const firebaseApp = admin.initializeApp({
 	credential: admin.credential.cert(credentials as ServiceAccount),
 });

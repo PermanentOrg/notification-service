@@ -1,6 +1,6 @@
 import type { ValidationError } from "joi";
 
-const isValidationError = (err: unknown): err is ValidationError =>
-	(err as ValidationError).isJoi;
+const isValidationError = (item: unknown): item is ValidationError =>
+	item instanceof Error && "isJoi" in item && item.isJoi === true;
 
 export { isValidationError };

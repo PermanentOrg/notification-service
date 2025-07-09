@@ -58,7 +58,9 @@ const deleteDevice: Handler = async (
 					}),
 				);
 		} else {
-			res.status(HTTP_STATUS.CLIENT_ERROR.NOT_FOUND).json("Device was not found.");
+			res
+				.status(HTTP_STATUS.CLIENT_ERROR.NOT_FOUND)
+				.json("Device was not found.");
 		}
 	}
 };
