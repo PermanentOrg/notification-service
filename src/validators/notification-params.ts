@@ -29,7 +29,7 @@ const validateCreateNotificationParams = (
 			),
 		})
 		.validate(data, { abortEarly: false });
-	if (validation.error) {
+	if (validation.error !== undefined) {
 		throw validation.error;
 	}
 	return true;

@@ -8,7 +8,7 @@ export const validateCreateDeviceParams = (data: unknown): data is Device => {
 			deviceToken: Joi.string().required(),
 		})
 		.validate(data, { abortEarly: false });
-	if (validation.error) {
+	if (validation.error !== undefined) {
 		throw validation.error;
 	}
 	return true;
