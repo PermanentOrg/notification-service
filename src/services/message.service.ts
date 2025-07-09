@@ -78,8 +78,9 @@ const sendMessageToUser = async ({
 }: Notification): Promise<string[]> => {
 	const tokens = await deviceService.getDeviceTokensForUser(toUserId);
 	return await Promise.all(
-		tokens.map(async (token) =>
-			await sendMessageToDevice(token, notificationType, context),
+		tokens.map(
+			async (token) =>
+				await sendMessageToDevice(token, notificationType, context),
 		),
 	);
 };

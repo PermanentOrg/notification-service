@@ -44,7 +44,6 @@ export default defineConfig([
 
 			// These are rules enabled by `love` which the project currently violates.
 			// We will re-enable these alongside the necessary fixes over time.
-			"import/enforce-node-protocol-usage": "off",
 			"@typescript-eslint/no-deprecated": "off",
 		},
 	},
