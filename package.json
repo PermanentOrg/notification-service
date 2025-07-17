@@ -38,7 +38,7 @@
 		"joi": "^17.13.3",
 		"pg": "^8.16.3",
 		"postgres-migrations": "^5.3.0",
-		"require-env-variable": "^3.1.2",
+		"require-env-variable": "^4.0.2",
 		"tinypg": "^7.0.1",
 		"winston": "^3.3.3"
 	},
