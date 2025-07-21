@@ -12,7 +12,10 @@ const template = ({
 	const meta = Object.keys(rest).length > 0 ? ` ${JSON.stringify(rest)}` : "";
 	const stacktrace = typeof stack === "string" ? `\n${stack}` : "";
 	const timestamp = new Date().toLocaleString();
-	return `${timestamp} ${level}: ${message}${meta}${stacktrace}`;
+	const safeMessage =
+		typeof message === "string" ? message : JSON.stringify(message);
+
+	return `${timestamp} ${level}: ${safeMessage}${meta}${stacktrace}`;
 };
 
 const debugLogger = createLogger({
