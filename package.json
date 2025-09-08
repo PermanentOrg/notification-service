@@ -31,7 +31,7 @@
 	},
 	"dependencies": {
 		"@pdc/http-status-codes": "^1.0.1",
-		"dotenv": "^17.2.1",
+		"dotenv": "^17.2.2",
 		"express": "^5.1.0",
 		"express-winston": "^4.2.0",
 		"firebase-admin": "^13.4.0",
