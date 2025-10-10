@@ -27,7 +27,7 @@
 	},
 	"homepage": "https://permanent.org",
 	"engines": {
-		"node": ">=22.0"
+		"node": ">=24.0"
 	},
 	"dependencies": {
 		"@pdc/http-status-codes": "^1.0.1",
@@ -42,10 +42,10 @@
 		"winston": "^3.18.3"
 	},
 	"devDependencies": {
-		"@tsconfig/node22": "^22.0.2",
+		"@tsconfig/node24": "^24.0.1",
 		"@types/express": "^5.0.3",
 		"@types/jest": "^30.0.0",
-		"@types/node": "^22.18.10",
+		"@types/node": "^24.7.1",
 		"@types/pg": "^8.15.5",
 		"@types/supertest": "^6.0.3",
 		"eslint": "^9.37.0",
