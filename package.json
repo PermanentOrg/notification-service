@@ -48,7 +48,7 @@
 		"@types/node": "^24.10.0",
 		"@types/pg": "^8.15.6",
 		"@types/supertest": "^6.0.3",
-		"eslint": "^9.38.0",
+		"eslint": "^9.39.0",
 		"eslint-config-love": "^133.0.0",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-import": "^2.32.0",
