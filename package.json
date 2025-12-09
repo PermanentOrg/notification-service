@@ -31,7 +31,7 @@
 	},
 	"dependencies": {
 		"@pdc/http-status-codes": "^1.0.1",
-		"express": "^5.2.0",
+		"express": "^5.2.1",
 		"express-winston": "^4.2.0",
 		"firebase-admin": "^13.6.0",
 		"joi": "^18.0.2",
@@ -43,7 +43,7 @@
 	},
 	"devDependencies": {
 		"@tsconfig/node24": "^24.0.3",
-		"@types/express": "^5.0.5",
+		"@types/express": "^5.0.6",
 		"@types/jest": "^30.0.0",
 		"@types/node": "^24.10.1",
 		"@types/pg": "^8.15.6",
