@@ -46,7 +46,7 @@
 		"@types/express": "^5.0.6",
 		"@types/jest": "^30.0.0",
 		"@types/node": "^24.10.1",
-		"@types/pg": "^8.15.6",
+		"@types/pg": "^8.16.0",
 		"@types/supertest": "^6.0.3",
 		"eslint": "^9.39.1",
 		"eslint-config-love": "^134.0.0",
