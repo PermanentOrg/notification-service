@@ -24,7 +24,7 @@ const validateCreateNotificationParams = (
 			context: Joi.object().pattern(
 				Joi.string()
 					.invalid(...forbiddenKeys)
-					.regex(/^(google|gcm)/i, { invert: true })
+					.regex(/^(?:google|gcm)/i, { invert: true })
 					.insensitive(),
 				Joi.string().required(),
 			),
