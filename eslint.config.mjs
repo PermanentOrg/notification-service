@@ -38,9 +38,6 @@ export default defineConfig([
 				"error",
 				{ ignore: [0], ignoreEnums: true },
 			],
-
-			// Temporarily disable this new rule until we fix the related issues
-			"prefer-named-capture-group": "off",
 		},
 	},
 	{
