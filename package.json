@@ -4,7 +4,7 @@
 	"description": "A service responsible for notifications",
 	"main": "lib/index.js",
 	"scripts": {
-		"build": "tsc",
+		"build": "tsc && tscp",
 		"eslint": "eslint --max-warnings 0 ./src --ext .ts",
 		"lint": "npm run lint:eslint && npm run lint:prettier && npm run lint:tsc",
 		"lint:eslint": "eslint ./src --ext .ts,.tsx",
@@ -59,6 +59,7 @@
 		"ts-jest": "^29.4.6",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.9.3",
+		"typescript-cp": "^0.1.9",
 		"typescript-eslint": "^8.50.1"
 	}
 }
