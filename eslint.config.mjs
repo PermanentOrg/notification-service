@@ -38,6 +38,9 @@ export default defineConfig([
 				"error",
 				{ ignore: [0], ignoreEnums: true },
 			],
+
+			// Disable this rule for the short term since it's new and we have to enable it with fixes
+			"require-unicode-regexp": "off",
 		},
 	},
 	{
