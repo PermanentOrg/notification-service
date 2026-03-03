@@ -38,7 +38,6 @@ export default defineConfig([
 				"error",
 				{ ignore: [0], ignoreEnums: true },
 			],
-			"@typescript-eslint/strict-void-return": "off",
 		},
 	},
 	{
