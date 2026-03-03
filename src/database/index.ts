@@ -11,7 +11,9 @@ const db = new TinyPg({
 const migrate = async (): Promise<void> => {
 	const client = await db.getClient();
 	await pgMigrate({ client }, path.resolve(__dirname, "migrations"), {
-		logger: logger.info,
+		logger: (msg) => {
+			logger.info(msg);
+		},
 	});
 };
 
