@@ -3,14 +3,10 @@ import { deviceService } from "../services";
 import { validateCreateDeviceParams, isValidationError } from "../validators";
 import { HTTP_STATUS } from "@pdc/http-status-codes";
 
-interface Devices {
-	userId: number;
-	deviceToken: string;
-}
-
 const addDevice: Handler = (req: Request, res: Response): void => {
+	const body: unknown = req.body;
 	try {
-		validateCreateDeviceParams(req.body);
+		validateCreateDeviceParams(body);
 	} catch (err) {
 		if (isValidationError(err)) {
 			res.status(HTTP_STATUS.CLIENT_ERROR.BAD_REQUEST).json({ error: err });
@@ -18,10 +14,11 @@ const addDevice: Handler = (req: Request, res: Response): void => {
 			throw err;
 		}
 	}
-	if (validateCreateDeviceParams(req.body)) {
+	if (validateCreateDeviceParams(body)) {
+		const { userId, deviceToken } = body;
 		deviceService
-			.addDevice(req.body)
-			.then(() => res.json(req.body))
+			.addDevice({ userId, deviceToken })
+			.then(() => res.json({ userId, deviceToken }))
 			.catch((err: unknown) =>
 				res.status(HTTP_STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR).json({
 					error: err,
@@ -33,8 +30,9 @@ const deleteDevice: Handler = async (
 	req: Request,
 	res: Response,
 ): Promise<void> => {
+	const body: unknown = req.body;
 	try {
-		validateCreateDeviceParams(req.body);
+		validateCreateDeviceParams(body);
 	} catch (err) {
 		if (isValidationError(err)) {
 			res.status(HTTP_STATUS.CLIENT_ERROR.BAD_REQUEST).json({ error: err });
@@ -42,15 +40,13 @@ const deleteDevice: Handler = async (
 			throw err;
 		}
 	}
-	if (validateCreateDeviceParams(req.body)) {
-		const device = req.body as Devices;
+	if (validateCreateDeviceParams(body)) {
+		const { userId, deviceToken } = body;
 		if (
-			(await deviceService.getDeviceTokensForUser(device.userId)).includes(
-				device.deviceToken,
-			)
+			(await deviceService.getDeviceTokensForUser(userId)).includes(deviceToken)
 		) {
 			deviceService
-				.removeDeviceToken(device.deviceToken)
+				.removeDeviceToken(deviceToken)
 				.then(() => res.json("Device is successfully removed."))
 				.catch((err: unknown) =>
 					res.status(HTTP_STATUS.SERVER_ERROR.INTERNAL_SERVER_ERROR).json({
