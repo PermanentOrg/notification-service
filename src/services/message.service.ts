@@ -1,5 +1,5 @@
 import admin from "firebase-admin";
-import type { messaging, ServiceAccount } from "firebase-admin";
+import type { messaging } from "firebase-admin";
 import { deviceService } from "./device.service";
 import type { Notification } from "./notification.service";
 import { logger } from "../log";
@@ -13,7 +13,7 @@ if (typeof credentials !== "object" || credentials === null) {
 }
 
 const firebaseApp = admin.initializeApp({
-	credential: admin.credential.cert(credentials as ServiceAccount),
+	credential: admin.credential.cert(credentials),
 });
 const messagingService = admin.messaging(firebaseApp);
 
