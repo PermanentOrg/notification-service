@@ -1,5 +1,6 @@
-import admin from "firebase-admin";
-import type { messaging } from "firebase-admin";
+import { initializeApp, cert } from "firebase-admin/app";
+import { getMessaging } from "firebase-admin/messaging";
+import type { Message } from "firebase-admin/messaging";
 import { deviceService } from "./device.service";
 import type { Notification } from "./notification.service";
 import { logger } from "../log";
@@ -12,12 +13,12 @@ if (typeof credentials !== "object" || credentials === null) {
 	);
 }
 
-const firebaseApp = admin.initializeApp({
-	credential: admin.credential.cert(credentials),
+const firebaseApp = initializeApp({
+	credential: cert(credentials),
 });
-const messagingService = admin.messaging(firebaseApp);
+const messagingService = getMessaging(firebaseApp);
 
-const sendMessage = async (message: messaging.Message): Promise<string> =>
+const sendMessage = async (message: Message): Promise<string> =>
 	await messagingService.send(message, false);
 
 interface FirebaseErrorI {
@@ -85,7 +86,7 @@ const sendMessageToUser = async ({
 	);
 };
 
-const sendDryRunMessage = async (message: messaging.Message): Promise<string> =>
+const sendDryRunMessage = async (message: Message): Promise<string> =>
 	await messagingService.send(message, true);
 
 const validateHealth = async (): Promise<boolean> => {
